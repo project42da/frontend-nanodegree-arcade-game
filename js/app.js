@@ -11,7 +11,7 @@ var Enemy = function() {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
-    console.log(this.speed)
+    console.log(this.speed);
 };
 
 // Update the enemy's position, required method for game
@@ -24,7 +24,7 @@ Enemy.prototype.update = function(dt) {
     if(this.x > 505) {
         this.x = -700;
         this.speed < 700 ? this.speed += Math.floor(Math.random() * 50) : this.speed -= 200;
-        console.log(this.speed)
+        console.log(this.speed);
     }
 
     //checking Collisions
@@ -47,13 +47,13 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function() {
-  var players = ['images/char-boy.png', 'images/char-cat-girl.png', 'images/char-horn-girl.png','images/char-pink-girl.png',]
+  var players = ['images/char-boy.png', 'images/char-cat-girl.png', 'images/char-horn-girl.png','images/char-pink-girl.png'];
   this.playerImage = players[Math.floor(Math.random() * 4)];
   this.x = 202;
   this.y = 392;
   //secret cause of her death
   this.drown = 0;
-}
+};
 
 Player.prototype.update = function() {
   this.x = this.x;
@@ -64,12 +64,12 @@ Player.prototype.update = function() {
     this.reset();
     this.drown += 1;
   }
-}
+};
 
 Player.prototype.reset = function() {
   this.x = 202;
   this.y = 392;
-}
+};
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.playerImage), this.x, this.y);
@@ -90,7 +90,7 @@ Player.prototype.handleInput = function(key) {
     this.y > 390 ? null : this.y = this.y + 83;
     break;
   }
-}
+};
 
 
 var Rock = function() {
@@ -99,7 +99,8 @@ var Rock = function() {
   this.y = 392;
   this.speed = 300;
   this.killbyrock = 0;
-}
+};
+
 Rock.prototype.update = function(dt) {
   this.x += this.speed * dt;
 
@@ -108,17 +109,18 @@ Rock.prototype.update = function(dt) {
     this.killbyrock += 1;
     player.reset();
   }
-}
+};
+
 Rock.prototype.render = function() {
   ctx.drawImage(Resources.get(this.rockImage), this.x, this.y);
-}
+};
 
 
 //Life class
 var Life = function() {
   this.lifeImage = 'images/Heart.png';
   this.life = 5;
-}
+};
 
 Life.prototype.render = function() {
   var lifePosition = 15;
@@ -129,21 +131,20 @@ Life.prototype.render = function() {
 
   if (this.life === 0 || player.drown === 3 || rock.killbyrock > 0) {
     ctx.fillStyle = 'black';
-    ctx.fillRect(0,0,600,600);;
+    ctx.fillRect(0,0,600,600);
 
     ctx.font = '30px Arial';
     ctx.fillStyle = 'white';
     ctx.fillText("Game Over", 190,300);
     ctx.save();
   }
-}
+};
 
 Life.prototype.decrease = function() {
   if (this.life > 0) {
     this.life -= 1;
   }
-
-}
+};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
