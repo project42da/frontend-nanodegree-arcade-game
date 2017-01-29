@@ -32,6 +32,9 @@ Enemy.prototype.update = function(dt) {
       player.reset();
       console.log(player.x);
       console.log(this.x);
+      
+      gameLife.life -= 1;
+      console.log(gameLife.life);
     }
 };
 
@@ -47,14 +50,18 @@ var Player = function() {
   this.playerImage = 'images/char-horn-girl.png';
   this.x = 202;
   this.y = 392;
+  //secret cause of her death
+  this.drown = 0;
 }
 
 Player.prototype.update = function() {
   this.x = this.x;
   this.y = this.y;
 
+
   if (this.y < 60) {
     this.reset();
+    this.drown += 1;
   }
 }
 
@@ -84,18 +91,71 @@ Player.prototype.handleInput = function(key) {
   }
 }
 
+
+var Rock = function() {
+  this.rockImage = 'images/Rock.png';
+  this.x = -2000;
+  this.y = 392;
+  this.speed = 300;
+  this.killbyrock = 0;
+}
+Rock.prototype.update = function(dt) {
+  this.x += this.speed * dt;
+
+  if(Math.abs(player.x - this.x) < 70 && Math.abs(player.y - this.y) < 40) {
+    //gameLife.life -= 4;
+    this.killbyrock += 1;
+    player.reset();
+  }
+}
+Rock.prototype.render = function() {
+  ctx.drawImage(Resources.get(this.rockImage), this.x, this.y);
+}
+
+
+//Life class
+var Life = function() {
+  this.lifeImage = 'images/Heart.png';
+  this.life = 5;
+}
+
+Life.prototype.render = function() {
+  var lifePosition = 15;
+  for (var i = 0; i < this.life; i++) {
+  ctx.drawImage(Resources.get(this.lifeImage), lifePosition, 45, 50, 85);
+  lifePosition += 50;
+  }
+
+  if (this.life === 0 || player.drown === 3 || rock.killbyrock > 0) {
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0,0,600,600);;
+
+    ctx.font = '30px Arial';
+    ctx.fillStyle = 'white';
+    ctx.fillText("Game Over", 190,300);
+    ctx.save();
+  }
+}
+
+Life.prototype.decrease = function() {
+  if (this.life > 0) {
+    this.life -= 1;
+  }
+
+}
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
 var player = new Player(),
+    gameLife = new Life(),
+    rock = new Rock(),
     allEnemies = [];
 
 for (var i = 0; i < 5; i++) {
   allEnemies.push(new Enemy());
 }
-
-
 
 
 // This listens for key presses and sends the keys to your

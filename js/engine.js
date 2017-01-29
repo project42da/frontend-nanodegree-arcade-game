@@ -41,6 +41,7 @@ var Engine = (function(global) {
     function updateEntities(dt) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
+            rock.update(dt);
         });
         player.update();
     }
@@ -76,6 +77,8 @@ var Engine = (function(global) {
         });
 
         player.render();
+        gameLife.render();
+        rock.render();
     }
 
 
@@ -90,7 +93,9 @@ var Engine = (function(global) {
         'images/char-boy.png',
         'images/char-cat-girl.png',
         'images/char-horn-girl.png',
-        'images/char-pink-girl.png'
+        'images/char-pink-girl.png',
+        'images/Heart.png',
+        'images/Rock.png',
 
     ]);
     Resources.onReady(init);
