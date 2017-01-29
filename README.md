@@ -1,10 +1,16 @@
 frontend-nanodegree-arcade-game
 ===============================
 
-Write down this on your terminal.
+*You should installed [Nodejs](https://nodejs.org/ko/download/package-manager/#osx)*
+
+Install **[http-server](https://www.npmjs.com/package/http-server)**
+
+```
+npm install http-server -g
+```
+This will install `http-server` globally so that it may be run from the command line.
+
 
 ```
 http-server ./
 ```
-
-Now you can visit *http://localhost:8080* to view your server
