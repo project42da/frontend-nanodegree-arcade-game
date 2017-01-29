@@ -14,3 +14,9 @@ This will install `http-server` globally so that it may be run from the command 
 ```
 http-server ./
 ```
+
+
+How to Play
+---
+- Move the player using the arrow keys: up, down, left, and right.
+- Survive!
