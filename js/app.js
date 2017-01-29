@@ -47,7 +47,8 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function() {
-  this.playerImage = 'images/char-horn-girl.png';
+  var players = ['images/char-boy.png', 'images/char-cat-girl.png', 'images/char-horn-girl.png','images/char-pink-girl.png',]
+  this.playerImage = players[Math.floor(Math.random() * 4)];
   this.x = 202;
   this.y = 392;
   //secret cause of her death
